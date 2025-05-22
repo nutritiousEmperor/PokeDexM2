@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <!-- Vereiste meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+
+    <!-- Material.io bestanden (CSS & Font/icons)-->
+    <!-- Uitleg werking componenents: https://material.io/components?platform=web -->
+    <!-- Demo van components:         https://material-components.github.io/material-components-web-catalog/#/ -->
+    <!-- Demo en uitleg icons:        https://fonts.google.com/icons?selected=Material+Icons -->
+    <link rel="stylesheet" href="imports/import.css"> 
+    <script defer src="imports/import.js"></script>
+    <script defer type="module" src="../controller/controller.js"></script>
+</head>
+<body>
+ <!-- HTML web-elementen -->   
+
+ <header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
+        <span class="mdc-top-app-bar__title">PokeDex</span>
+      </section>
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+
+        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label hidden" style="display: none;">
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input class="mdc-text-field__input" type="text" aria-label="Label">
+          </label>
+
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button mdc-top-app-bar-search-button" aria-label="Search">search</button>
+
+      </section>
+    </div>
+  </header>
+  <main class="mdc-top-app-bar--fixed-adjust">
+    App content
+  </main>
+
+</body>
+</html>

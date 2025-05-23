@@ -12,15 +12,43 @@ let searchButton = document.querySelector('.mdc-top-app-bar-search-button');
 let inputField = document.querySelector('.mdc-text-field--outlined');
 searchButton.addEventListener('click', () => 
     {
-        if(!inputField.classList.contains('hidden'))
+        let loadData = [];
+        fetch('../data/search_hard_coded.json')
+        .then(response => response.json())
+        .then(data => loadData = data);
+
+        if(inputField.style.display != 'none')
         {
-            inputField.classList.add('hidden');
             inputField.style.display = 'none';
-            console.log("added hidden");
         } else
         {
-            inputField.classList.remove('hidden');
             inputField.style.display = 'flex';
-            console.log("removed hidden");
+
+            document.querySelector('.search-input-mdc-text-field').addEventListener('input', function(event) 
+            {
+                const query = event.target.value.toLowerCase();
+
+                search(loadData, query);
+            });
         }
     });
+
+function search(data, query)
+{
+    const results = data.filter(item => item.name.toLowerCase().includes(query));
+    document.getElementById('results').textContent = '';
+    
+    // For now it will just display the results in results div. This will later be changed to a list of cards in m2.
+    if(query != '')
+    {
+        for (let index = 0; index < results.length && index < 5; index++) 
+        {
+            // And here to visible obvs
+            document.getElementById('results').innerHTML += '<a class="mdc-card searchCards" href="' + results[index].url + '">' + results[index].name + '</a><br>';
+        }
+    } else 
+    {
+        // In material design you could probably set in here the cards to hidden or something. 
+        document.getElementById('results').innerHTML = '';
+    }
+}

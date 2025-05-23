@@ -11,6 +11,7 @@
     <!-- Demo van components:         https://material-components.github.io/material-components-web-catalog/#/ -->
     <!-- Demo en uitleg icons:        https://fonts.google.com/icons?selected=Material+Icons -->
     <link rel="stylesheet" href="imports/import.css"> 
+    <link rel="stylesheet" href="style.css">
     <script defer src="imports/import.js"></script>
     <script defer type="module" src="../controller/controller.js"></script>
 </head>
@@ -30,16 +31,19 @@
               <span class="mdc-notched-outline__leading"></span>
               <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <input class="mdc-text-field__input" type="text" aria-label="Label">
+            <input class="mdc-text-field__input search-input-mdc-text-field" type="text" aria-label="Label">
           </label>
 
         <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button mdc-top-app-bar-search-button" aria-label="Search">search</button>
 
       </section>
     </div>
+
+    <div id="results"></div>
   </header>
   <main class="mdc-top-app-bar--fixed-adjust">
     App content
+    
   </main>
 
 </body>

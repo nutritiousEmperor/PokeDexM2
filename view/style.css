@@ -1,0 +1,19 @@
+#results {
+    display: flex;               
+    flex-wrap: wrap;          
+    gap: 0;                      
+    margin: 0;
+    padding: 0;
+  }
+  
+  .searchCards {
+    padding: 10px;                  
+    border-radius: 0;            
+    width: 100%;             
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-decoration: none;       
+    color: black;
+  }
+  

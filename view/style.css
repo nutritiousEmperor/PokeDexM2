@@ -6,7 +6,7 @@
     padding: 0;
   }
   
-  .searchCards {
+.searchCards {
     padding: 10px;                  
     border-radius: 0;            
     width: 100%;             
@@ -15,5 +15,24 @@
     align-items: flex-start;
     text-decoration: none;       
     color: black;
+  }
+  .sheet {
+    position: fixed;          
+    bottom: 0px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 56px);           
+    background-color: red;
+    transform: translateY(-100%);  
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;            
+  }
+  
+  .sheet-out-of-view {
+    transform: translateY(-110%);
+  }
+  
+  .sheet:not(.sheet-out-of-view) {
+    transform: translateY(0);       
   }
   

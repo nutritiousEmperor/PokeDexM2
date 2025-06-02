@@ -8,6 +8,7 @@ export class Pokémon
         this._pokemonName = pokemonName;
         this._pokemonID = pokemonID;
         this._imgUrl = `${Pokémon.baseImgUrl}/${pokemonID}.png`;
+        this._backImgUrl = `${Pokémon.baseImgUrl}/back/${pokemonID}.png`;
     }
 
     // Getters:

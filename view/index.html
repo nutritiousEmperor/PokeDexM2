@@ -42,13 +42,120 @@
     <div id="results"></div>
   </header>
   <main class="mdc-top-app-bar--fixed-adjust">
-    App content
+    <div class="mdc-tab-bar" role="tablist">
+      <div class="mdc-tab-scroller">
+        <div class="mdc-tab-scroller__scroll-area">
+          <div class="mdc-tab-scroller__scroll-content">
+            <button class="mdc-tab favorites-button" role="tab" aria-selected="false" tabindex="0">
+              <span class="mdc-tab__content">
+                <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
+                <span class="mdc-tab__text-label">Favorites</span>
+              </span>
+              <span class="mdc-tab-indicator">
+                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              </span>
+              <span class="mdc-tab__ripple"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    
+
+    <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list"></ul>
+
+
+    <footer>
+      <div class="mdc-tab-bar tab-bar-bottom-custom" role="tablist">
+        <div class="mdc-tab-scroller">
+          <div class="mdc-tab-scroller__scroll-area">
+            <div class="mdc-tab-scroller__scroll-content">
+    
+              <button class="mdc-tab back-mdc-tab-bottom-btn" role="tab" aria-selected="true" tabindex="0">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">navigate_before</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+              <button class="mdc-tab favorite-mdc-tab-bottom-btn" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+              <button class="mdc-tab next-mdc-tab-bottom-btn" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">navigate_next</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  </main>
+
+
+  <section class="sheet-favorites sheet-out-of-view-favorites">
+
+  </section>
+
     <section class="sheet sheet-out-of-view">
       <img class="pokemonMainImg">
-      <button class="switchImagesBtn">Show Back</button>
       <h1 class="pokemon-name"></h1>
+      <button class="switchImagesBtn">Show Back</button>
+
+      <footer>
+        <div class="mdc-tab-bar tab-bar-bottom-custom" role="tablist">
+          <div class="mdc-tab-scroller">
+            <div class="mdc-tab-scroller__scroll-area">
+              <div class="mdc-tab-scroller__scroll-content">
+                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__icon material-icons mdc-tab-bottom-icons" aria-hidden="true">thumb_up</span>
+  
+  
+                    <span class="mdc-tab__icon material-icons mdc-tab-bottom-icons" aria-hidden="true">favorite</span>
+      
+  
+                    <span class="mdc-tab__icon material-icons mdc-tab-bottom-icons" aria-hidden="true">thumb_down</span>
+          
+                  </span>
+                  <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+  
+      
+    </footer>
     </section>
-  </main>
+
 
 
   

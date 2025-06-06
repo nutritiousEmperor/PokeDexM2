@@ -1,9 +1,20 @@
+:root {
+  --mdc-primary-theme: #3B4CCA;
+  --mdc-theme-accent: #FFDE00;
+}
+
+.mdc-top-app-bar {
+  background-color: var(--mdc-primary-theme);
+}
+
 #results {
     display: flex;               
     flex-wrap: wrap;          
     gap: 0;                      
     margin: 0;
     padding: 0;
+    z-index: 1100;
+    position: relative;
   }
   
 .searchCards {
@@ -14,18 +25,23 @@
     justify-content: flex-start;
     align-items: flex-start;
     text-decoration: none;       
-    color: black;
-  }
+    color: black;   
+}
+
   .sheet {
     position: fixed;          
     bottom: 0px;
     left: 0;
     width: 100vw;
     height: calc(100vh - 56px);           
-    background-color: red;
+    background-color: #4dac5a;
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
     z-index: 1000;            
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .sheet-out-of-view {
@@ -36,3 +52,62 @@
     transform: translateY(0);       
   }
   
+  .pokemonMainImg {
+    width: 70%;
+    max-height: 50%;
+    background-color: red;
+    border-radius: 50%;
+  }
+
+  .pokemon-name {
+    font-family: 'Pokemon Solid';
+    font-size: 300%;
+  }
+
+  .sheet-favorites {
+    position: fixed;          
+    bottom: 0px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 56px);           
+    background-color: #c95723;
+    transform: translateY(-100%);  
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;            
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sheet-out-of-view-favorites {
+    transform: translateX(110%);
+  }
+  
+  .sheet-favorites:not(.sheet-out-of-view-favorites) {
+    transform: translateX(0);       
+  }
+
+  .mdc-image-list--masonry {
+    column-count: 2;
+    gap: 1em;
+  }
+
+  .mdc-image-list__image {
+    margin-bottom: 1em;
+  }
+  
+  .tab-bar-bottom-custom {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--mdc-theme-primary);
+    display: flex;
+    justify-content: space-around;
+    
+  }
+
+  footer .mdc-tab__icon {
+    color: white !important;
+  }
+

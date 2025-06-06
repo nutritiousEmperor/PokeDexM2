@@ -5,6 +5,8 @@ import { API } from "../data/API.js";
 import { Pokémon } from "../model/Pokémon.js";
 
 
+// Go home:
+let homeButton = document.querySelector('.mdc-top-app-bar__title');
 
 
 // Search:
@@ -80,13 +82,22 @@ async function defineData(pokemonName)
 
 async function displayPokemonSheet(pokemonName)
 {
+    
     const sheet = document.querySelector('.sheet');
     inputField.style.display = 'none';
     document.querySelector('.search-input-mdc-text-field').value = '';
     sheet.classList.remove('sheet-out-of-view');
+
+    // Add event listener to go back to the home screen:
+    homeButton.addEventListener('click', () => {
+        sheet.classList.add('sheet-out-of-view');
+        history.pushState(null, null, '/view/');
+    });
+
+    // Define data about pokemon:
     let titleH1 = document.querySelector('.pokemon-name');
     
-    // Define data about pokemon:
+    
     const pokemon = await defineData(pokemonName);
 
     let mainImg = pokemon._imgUrl;
@@ -123,3 +134,71 @@ function switchImages(mainImg, backImg)
         }
     });
 }
+
+
+async function displayFavoritesSheet()
+{
+    const sheet = document.querySelector('.sheet-favorites');
+    inputField.style.display = 'none';
+    document.querySelector('.search-input-mdc-text-field').value = '';
+    sheet.classList.remove('sheet-out-of-view-favorites');
+
+    // Add event listener to go back to the home screen:
+    homeButton.addEventListener('click', () => {
+        sheet.classList.add('sheet-out-of-view-favorites');
+        history.pushState(null, null, '/view/');
+    });
+}
+
+const favoritesBtn = document.querySelector('.favorites-button');
+const favoritesBtnBottom = document.querySelector('.favorite-mdc-tab-bottom-btn');
+favoritesBtn.addEventListener('click', () => {
+    displayFavoritesSheet();
+});
+favoritesBtnBottom.addEventListener('click', () => {
+    displayFavoritesSheet();
+});
+
+const pokemon = {};
+
+async function showFirstSetOfCardsOnHomeScreen()
+{
+
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20`);
+    console.log(arrayList.results);
+
+    const masonryList = document.querySelector('.my-masonry-image-list');
+
+    for (let index = 0; index < 20; index++) 
+    {
+        let pokemonName = arrayList.results[index].name;
+        let pokemonID = arrayList.results[index].url.split("/").filter(Boolean).pop(); 
+
+        // Create Pokémon Instances:
+        pokemon[pokemonName] = new Pokémon(pokemonName, pokemonID);
+
+
+        const listItem = document.createElement('li');
+        listItem.className = 'mdc-image-list__item';
+        
+        const img = document.createElement('img');
+        img.className = 'mdc-image-list__image mdc-card';
+        img.src = pokemon[pokemonName]._imgUrl;
+        img.title = pokemon[pokemonName]._pokemonName;
+        
+        img.addEventListener('click', () => {
+            history.pushState(null, null, 'pokemon/' + pokemonName);
+            displayPokemonSheet(pokemonName);
+        });
+        
+        listItem.appendChild(img);
+        masonryList.appendChild(listItem);
+        
+            
+    }
+}
+
+showFirstSetOfCardsOnHomeScreen();
+
+const nextButton = document.querySelector('.next-mdc-tab-bottom-btn');
+const backButton = document.querySelector('.back-mdc-tab-bottom-btn');

@@ -80,6 +80,18 @@ async function defineData(pokemonName)
     return pokemon;
 }
 
+async function defineDataById(pokemonId) {
+    try {
+        const data = await API.query(`${API.baseUrl}/pokemon/${pokemonId}`);
+        if (!data) throw new Error("No data returned");
+        return new Pokémon(data.name, data.id);
+    } catch (err) {
+        console.error(`Pokemon with ID ${pokemonId} not found.`, err);
+        return null;
+    }
+}
+
+
 async function displayPokemonSheet(pokemonName)
 {
     
@@ -102,14 +114,24 @@ async function displayPokemonSheet(pokemonName)
 
     let mainImg = pokemon._imgUrl;
     let backImg = pokemon._backImgUrl;
+    let pokemonId = pokemon._pokemonID;
 
     switchImages(mainImg, backImg);
 
     document.querySelector('.pokemonMainImg').alt = pokemon._name;
     titleH1.textContent = pokemonName;
 
+    const nextButtonSection = document.querySelector('.next-mdc-tab-bottom-btn-section');
+    const backButtonSection = document.querySelector('.back-mdc-tab-bottom-btn-section');
+
     
-    
+    nextButtonSection.addEventListener('click', () => {
+        nextPokemon(pokemonId);
+    });
+
+    backButtonSection.addEventListener('click', () => {
+        previous(pokemonId);
+    });
     
     
     console.log(mainImg)
@@ -161,13 +183,11 @@ favoritesBtnBottom.addEventListener('click', () => {
 
 const pokemon = {};
 
-async function showFirstSetOfCardsOnHomeScreen()
+function showCards(arrayList)
 {
-
-    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20`);
-    console.log(arrayList.results);
-
     const masonryList = document.querySelector('.my-masonry-image-list');
+
+    masonryList.innerHTML = '';
 
     for (let index = 0; index < 20; index++) 
     {
@@ -192,13 +212,68 @@ async function showFirstSetOfCardsOnHomeScreen()
         });
         
         listItem.appendChild(img);
-        masonryList.appendChild(listItem);
-        
-            
+        masonryList.appendChild(listItem);        
     }
+}
+
+async function showFirstSetOfCardsOnHomeScreen()
+{
+
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20`);
+    //console.log(arrayList.results);
+
+    showCards(arrayList);
 }
 
 showFirstSetOfCardsOnHomeScreen();
 
+async function showNextSetOfCardsOnHomeScreen(currentPage)
+{
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
+    showCards(arrayList);
+}
+
+async function showPreviousSetOfCardsOnHomeScreen(currentPage)
+{
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
+    console.log('yes');
+    showCards(arrayList);
+}
+
+let currentPage = 0;
 const nextButton = document.querySelector('.next-mdc-tab-bottom-btn');
 const backButton = document.querySelector('.back-mdc-tab-bottom-btn');
+
+nextButton.addEventListener('click', () => {
+    currentPage += 20;
+    showNextSetOfCardsOnHomeScreen(currentPage);
+});
+
+backButton.addEventListener('click', () => {
+    if(currentPage >= 20)
+    {
+        currentPage -= 20;
+        showPreviousSetOfCardsOnHomeScreen(currentPage);
+    }
+});
+
+
+const favoriteButtonSection = document.querySelector('.favorite-mdc-tab-bottom-btn-section');
+
+
+
+async function nextPokemon(pokemonId)
+{
+    let newPokemonId = pokemonId + 1;
+    let pokemon = await defineDataById(newPokemonId);
+
+    displayPokemonSheet(pokemon._name);
+}
+
+async function previous(pokemonId)
+{
+    let newPokemonId = pokemonId - 1;
+    let pokemon = await defineDataById(newPokemonId);
+
+    displayPokemonSheet(pokemon._name);
+}

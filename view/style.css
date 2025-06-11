@@ -104,6 +104,14 @@
     background-color: var(--mdc-theme-primary);
     display: flex;
     justify-content: space-around;
+  }
+
+  .tab-bar-bottom-custom-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--mdc-theme-primary);
     
   }
 
@@ -111,3 +119,6 @@
     color: white !important;
   }
 
+.switchImagesBtn {
+  opacity: 0;
+}

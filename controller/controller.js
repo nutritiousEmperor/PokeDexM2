@@ -168,12 +168,46 @@ async function displayFavoritesSheet()
     inputField.style.display = 'none';
     document.querySelector('.search-input-mdc-text-field').value = '';
     sheet.classList.remove('sheet-out-of-view-favorites');
+    history.pushState('null', 'null', 'favorites/');
 
+
+    // Display all the favorites pokemons:
+    console.log(favoritesPokemonArray);
+
+    const masonryList = document.querySelector('.my-masonry-favorites-image-list');
+    masonryList.innerHTML = '';
+
+    favoritesPokemonArray.forEach(pokemonName => {
+        displayPokemonsInFavoritesSheet(pokemonName);
+    });
+    
     // Add event listener to go back to the home screen:
     homeButton.addEventListener('click', () => {
         sheet.classList.add('sheet-out-of-view-favorites');
         history.pushState(null, null, '/view/');
     });
+}
+
+function displayPokemonsInFavoritesSheet(pokemon)
+{
+    
+    
+
+    const listItem = document.createElement('li');
+    listItem.className = 'mdc-image-list__item';
+    
+    /*const img = document.createElement('img');
+    img.className = 'mdc-image-list__image mdc-card';
+    img.src = pokemon[pokemonName]._imgUrl;*/
+    img.title = pokemon;
+    
+    img.addEventListener('click', () => {
+        history.pushState(null, null, 'pokemon/' + pokemonName);
+        displayPokemonSheet(pokemonName);
+    });
+    
+    //listItem.appendChild(img);
+    masonryList.appendChild(listItem);
 }
 
 const favoritesBtn = document.querySelector('.favorites-button');
@@ -263,7 +297,7 @@ backButton.addEventListener('click', () => {
 
 
 const favoriteButtonSection = document.querySelector('.favorite-mdc-tab-bottom-btn-section');
-
+const favoritesPokemonArray = [];
 
 
 async function nextPokemon(pokemonId)
@@ -282,3 +316,10 @@ async function previous(pokemonId)
 
     displayPokemonSheet(pokemon._name);
 }
+
+favoriteButtonSection.addEventListener('click', () => {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    const pokemonName = segments[segments.length - 1];
+
+    favoritesPokemonArray.push(pokemonName);
+});

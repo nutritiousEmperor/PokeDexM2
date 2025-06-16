@@ -81,10 +81,13 @@ async function defineData(pokemonName)
 }
 
 async function defineDataById(pokemonId) {
+    const query = `${API.baseUrl}/pokemon/${pokemonId}`;
     try {
-        const data = await API.query(`${API.baseUrl}/pokemon/${pokemonId}`);
+        const data = await API.query(query);
         if (!data) throw new Error("No data returned");
-        return new Pokémon(data.name, data.id);
+        Pokémon._pokemonName = data.name;
+        Pokémon._pokemonID = data.id;
+        return Pokémon._pokemonName, Pokémon._pokemonID;
     } catch (err) {
         console.error(`Pokemon with ID ${pokemonId} not found.`, err);
         return null;
@@ -94,7 +97,8 @@ async function defineDataById(pokemonId) {
 
 async function displayPokemonSheet(pokemonName)
 {
-    
+    history.pushState(null, null, '/view/');
+    history.pushState(null, null, 'pokemon/' + pokemonName);
     const sheet = document.querySelector('.sheet');
     inputField.style.display = 'none';
     document.querySelector('.search-input-mdc-text-field').value = '';
@@ -266,8 +270,9 @@ async function nextPokemon(pokemonId)
 {
     let newPokemonId = pokemonId + 1;
     let pokemon = await defineDataById(newPokemonId);
+    console.log(Pokémon._pokemonName, Pokémon._pokemonID);
 
-    displayPokemonSheet(pokemon._name);
+    displayPokemonSheet(Pokémon._pokemonName);
 }
 
 async function previous(pokemonId)

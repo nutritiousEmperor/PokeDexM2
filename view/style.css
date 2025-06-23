@@ -33,7 +33,7 @@
     bottom: 0px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 56px);           
+    min-height: calc(100vh - 56px);           
     background-color: #4dac5a;
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
@@ -66,34 +66,53 @@
 
   .sheet-favorites {
     position: fixed;          
-    bottom: 0px;
+    top: 56px;
     left: 0;
     width: 100vw;
     height: calc(100vh - 56px);           
-    background-color: #c95723;
+    background-color: #faf32b;
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
     z-index: 1000;            
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    overflow-y: auto;
+  }
+
+  .sheet-types {
+    position: fixed;          
+    top: 56px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 56px);           
+    background-color: #ffffff;
+    transform: translateY(-100%);  
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;            
+    overflow-y: auto;
   }
 
   .sheet-out-of-view-favorites {
-    transform: translateX(110%);
+    transform: translateY(-110%);
   }
   
   .sheet-favorites:not(.sheet-out-of-view-favorites) {
-    transform: translateX(0);       
+    transform: translateY(0);       
   }
 
-  .mdc-image-list--masonry {
+  .sheet-out-of-view-types {
+    transform: translateY(-110%);
+  }
+  
+  .sheet-types:not(.sheet-out-of-view-types) {
+    transform: translateY(0);       
+  }
+
+  .mdc-image-list--masonry,
+  .my-masonry-favorites-image-list {
     column-count: 2;
     gap: 1em;
   }
 
-  .mdc-image-list__image {
+  .image-with-caption {
     margin-bottom: 1em;
   }
   
@@ -121,4 +140,41 @@
 
 .switchImagesBtn {
   opacity: 0;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.disabled-button {
+  opacity: 0.5;
+  color: lightgray !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+.hidden {
+  display: none;
+}
+
+.sheet-hamburger-menu {
+  position: fixed;          
+  top: 56px;
+  left: 0;
+  width: 100vw;
+  height: calc(40vh - 56px);           
+  background-color: #ffffff;
+  transform: translateY(-100%);  
+  transition: transform 0.3s ease-in-out;
+  z-index: 20000000;            
+  overflow-y: auto;
+  color: black;
+}
+
+.sheet-hamburger-menu:not(.sheet-out-of-view-hamburger) {
+  transform: translateY(0);       
+}
+
+.sheet-out-of-view-hamburger {
+  transform: translateY(-130%);
 }

@@ -9,34 +9,34 @@ export class Pokémon
         this._pokemonName = pokemonName;
         this._pokemonID = pokemonID;
         this._imgUrl = `${Pokémon.baseImgUrl}/${pokemonID}.svg`;
-        this._backImgUrl = `${Pokémon.baseImgUrl}/back/${pokemonID}.svg`;
     }
 
     // Getters:
-    static getPokemonName() { return this._pokemonName; }
-    static getPokemonID() { return this._pokemonID; }
-    static getPokemonWeight() { return this._pokemonWeight; }
-    static getPokemonHeight() { return this._pokemonHeight; }
-    static getPokemonHp() { return this._pokemonHp; }
-    static getPokemonAttack() { return this._pokemonAttack; }
-    static getPokemonDefense() { return this._pokemonDefense; }
-    static getPokemonSpecialAttack() { return this._pokemonSpecialAttack; }
-    static getPokemonSpecialDefense() { return this._pokemonSpecialDefense; }
-    static getPokemonSpeed() { return this._pokemonSpeed; }
-    static getPokemonType() { return this._pokemonType; }
-
+    getPokemonName() { return this._pokemonName; }
+    getPokemonID() { return this._pokemonID; }
+    getPokemonWeight() { return this._pokemonWeight; }
+    getPokemonHeight() { return this._pokemonHeight; }
+    getPokemonHp() { return this._pokemonHp; }
+    getPokemonAttack() { return this._pokemonAttack; }
+    getPokemonDefense() { return this._pokemonDefense; }
+    getPokemonSpecialAttack() { return this._pokemonSpecialAttack; }
+    getPokemonSpecialDefense() { return this._pokemonSpecialDefense; }
+    getPokemonSpeed() { return this._pokemonSpeed; }
+    getPokemonType() { return this._pokemonType; }
+    getPokemonExperience() { return this._pokemonExperience; }
 
     // Setters:
-    static setPokemonName(pokemonName) { this._pokemonName = pokemonName; }
-    static setPokemonID(pokemonID) { this._pokemonID = pokemonID; }
-    static setPokemonWeight(pokemonWeight) {this._pokemonWeight = pokemonWeight; }
-    static setPokemonHeight(pokemonHeight) {this._pokemonHeight = pokemonHeight; }
-    static setPokemonHp(pokemonHp) {this._pokemonHp = pokemonHp; }
-    static setPokemonAttack(pokemonAttack) {this._pokemonAttack = pokemonAttack; }
-    static setPokemonDefense(pokemonDefense) {this._pokemonDefense = pokemonDefense; }
-    static setPokemonSpecialAttack(pokemonSpecialAttack) {this._pokemonSpecialAttack = pokemonSpecialAttack; }
-    static setPokemonSpecialDefense(pokemonSpecialDefense) {this._pokemonSpecialDefense = pokemonSpecialDefense; }
-    static setPokemonSpeed(pokemonSpeed) {this._pokemonSpeed = pokemonSpeed; }
-    static setPokemonType(pokemonType) {this._pokemonType = pokemonType; }
+    setPokemonName(pokemonName) { this._pokemonName = pokemonName; }
+    setPokemonID(pokemonID) { this._pokemonID = pokemonID; }
+    setPokemonWeight(pokemonWeight) {this._pokemonWeight = pokemonWeight; }
+    setPokemonHeight(pokemonHeight) {this._pokemonHeight = pokemonHeight; }
+    setPokemonHp(pokemonHp) {this._pokemonHp = pokemonHp; }
+    setPokemonAttack(pokemonAttack) {this._pokemonAttack = pokemonAttack; }
+    setPokemonDefense(pokemonDefense) {this._pokemonDefense = pokemonDefense; }
+    setPokemonSpecialAttack(pokemonSpecialAttack) {this._pokemonSpecialAttack = pokemonSpecialAttack; }
+    setPokemonSpecialDefense(pokemonSpecialDefense) {this._pokemonSpecialDefense = pokemonSpecialDefense; }
+    setPokemonSpeed(pokemonSpeed) {this._pokemonSpeed = pokemonSpeed; }
+    setPokemonType(pokemonType) {this._pokemonType = pokemonType; }
+    setPokemonExperience(pokemonExperience) {this._pokemonExperience = pokemonExperience; }
 }
 

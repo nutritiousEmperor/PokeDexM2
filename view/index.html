@@ -21,8 +21,9 @@
  <header class="mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
-        <span class="mdc-top-app-bar__title">PokeDex</span>
+        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button hamburger-menu-btn" aria-label="Open navigation menu">menu</button>
+        <img class="mdc-top-app-bar__logo" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokemon Logo">
+        <span class="mdc-top-app-bar__title">PokéDex</span>
       </section>
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
 
@@ -39,8 +40,25 @@
       </section>
     </div>
 
+    
+
     <div id="results"></div>
   </header>
+  
+
+  <section class="sheet-hamburger-menu sheet-out-of-view-hamburger">
+    <button class="mdc-top-app-bar__title">
+      Home
+    </button>
+    <br>
+    <button class="favorites-button">
+      Favorites
+    </button>
+    <br>
+    <button class="types-button">
+      Types
+    </button>
+  </section>
   <main class="mdc-top-app-bar--fixed-adjust">
     <div class="mdc-tab-bar" role="tablist">
       <div class="mdc-tab-scroller">
@@ -50,6 +68,17 @@
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
                 <span class="mdc-tab__text-label">Favorites</span>
+              </span>
+              <span class="mdc-tab-indicator">
+                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              </span>
+              <span class="mdc-tab__ripple"></span>
+            </button>
+
+            <button class="mdc-tab types-button" role="tab" aria-selected="false" tabindex="1">
+              <span class="mdc-tab__content">
+                <span class="mdc-tab__icon material-icons" aria-hidden="true">type</span>
+                <span class="mdc-tab__text-label">Types</span>
               </span>
               <span class="mdc-tab-indicator">
                 <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
@@ -116,15 +145,72 @@
     
   </main>
 
+  
+
+
 
   <section class="sheet-favorites sheet-out-of-view-favorites">
     <ul class="mdc-image-list mdc-image-list--masonry my-masonry-favorites-image-list"></ul>
   </section>
 
+  <section class="sheet-types sheet-out-of-view-types">
+    <div id="typeResultsContainer"></div>
+
+    <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list-for-type"></ul>
+
+    <footer class="type-footer hidden">
+      <div class="mdc-tab-bar tab-bar-bottom-custom" role="tablist">
+        <div class="mdc-tab-scroller">
+          <div class="mdc-tab-scroller__scroll-area">
+            <div class="mdc-tab-scroller__scroll-content">
+    
+              <button class="mdc-tab back-mdc-tab-type-btn" role="tab" aria-selected="true" tabindex="0">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">navigate_before</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+              <button class="mdc-tab favorite-mdc-tab-type-btn" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+              <button class="mdc-tab next-mdc-tab-type-btn" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">navigate_next</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
     <section class="sheet sheet-out-of-view">
       <img class="pokemonMainImg">
       <h1 class="pokemon-name"></h1>
-      <button class="switchImagesBtn">Show Back</button>
+
+      <p class="pokemon-data">
+        <span class="pokemon-height"></span>
+        <span class="pokemon-weight"></span>
+        <span class="pokemon-types"></span>
+        <span class="pokemon-experience"></span>
+      </p>
 
       <footer>
         <div class="mdc-tab-bar tab-bar-bottom-custom-section" role="tablist">

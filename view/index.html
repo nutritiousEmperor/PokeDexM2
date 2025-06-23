@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
 
+    <meta name="description" content="Dit is een pokemon app waarin je alle pokemons kan zien en kan zoeken.">
+    <meta name="msapplication-TileColor" content="white">
+    <meta name="theme-color" content="ghostwhite">
+    <link rel="icon" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="manifest" href="manifest.json">
+
     <!-- Material.io bestanden (CSS & Font/icons)-->
     <!-- Uitleg werking componenents: https://material.io/components?platform=web -->
     <!-- Demo van components:         https://material-components.github.io/material-components-web-catalog/#/ -->
@@ -23,7 +29,7 @@
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
         <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button hamburger-menu-btn" aria-label="Open navigation menu">menu</button>
         <img class="mdc-top-app-bar__logo" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokemon Logo">
-        <span class="mdc-top-app-bar__title">PokéDex</span>
+        <span class="mdc-top-app-bar__title mdc-top-app-bar__title-action">PokéDex</span>
       </section>
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
 
@@ -40,22 +46,19 @@
       </section>
     </div>
 
-    
-
     <div id="results"></div>
   </header>
   
-
   <section class="sheet-hamburger-menu sheet-out-of-view-hamburger">
-    <button class="mdc-top-app-bar__title">
+    <button class="button-menu mdc-top-app-bar__title-action">
       Home
     </button>
     <br>
-    <button class="favorites-button">
+    <button class="button-menu favorites-button">
       Favorites
     </button>
     <br>
-    <button class="types-button">
+    <button class="button-menu types-button">
       Types
     </button>
   </section>
@@ -66,7 +69,7 @@
           <div class="mdc-tab-scroller__scroll-content">
             <button class="mdc-tab favorites-button" role="tab" aria-selected="false" tabindex="0">
               <span class="mdc-tab__content">
-                <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
+                <span class="mdc-tab__icon material-icons" aria-hidden="true"></span>
                 <span class="mdc-tab__text-label">Favorites</span>
               </span>
               <span class="mdc-tab-indicator">
@@ -90,16 +93,7 @@
       </div>
     </div>
 
-
-
-
-
-
-
-    
-
     <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list"></ul>
-
 
     <footer>
       <div class="mdc-tab-bar tab-bar-bottom-custom" role="tablist">
@@ -117,7 +111,7 @@
                 <span class="mdc-tab__ripple"></span>
               </button>
     
-              <button class="mdc-tab favorite-mdc-tab-bottom-btn" role="tab" aria-selected="false" tabindex="-1">
+              <button class="mdc-tab favorites-button favorite-mdc-tab-bottom-btn" role="tab" aria-selected="false" tabindex="-1">
                 <span class="mdc-tab__content">
                   <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
                 </span>
@@ -144,10 +138,6 @@
     </footer>
     
   </main>
-
-  
-
-
 
   <section class="sheet-favorites sheet-out-of-view-favorites">
     <ul class="mdc-image-list mdc-image-list--masonry my-masonry-favorites-image-list"></ul>
@@ -206,9 +196,9 @@
       <h1 class="pokemon-name"></h1>
 
       <p class="pokemon-data">
-        <span class="pokemon-height"></span>
-        <span class="pokemon-weight"></span>
-        <span class="pokemon-types"></span>
+        <span class="pokemon-height"></span><br>
+        <span class="pokemon-weight"></span><br>
+        <span class="pokemon-types"></span><br>
         <span class="pokemon-experience"></span>
       </p>
 
@@ -255,9 +245,12 @@
       </footer>
     </section>
 
-
-
-  
-
+    <script>
+      window.addEventListener("load", () => {
+        if("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("service-worker.js");
+        }
+      });
+    </script>
 </body>
 </html>

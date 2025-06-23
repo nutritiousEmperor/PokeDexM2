@@ -1,10 +1,17 @@
 :root {
-  --mdc-primary-theme: #3B4CCA;
-  --mdc-theme-accent: #FFDE00;
+  --mdc-theme-primary: white;
+  --mdc-theme-accent: ghostwhite;
+  --mdc-text-color: rgb(220 38 38 / var(--tw-text-opacity, 1));
 }
 
 .mdc-top-app-bar {
-  background-color: var(--mdc-primary-theme);
+  background-color: var(--mdc-theme-primary);
+  border-bottom: 1px  solid var(--mdc-theme-accent);
+  margin-bottom: 5px;
+}
+
+html {
+  background-color: var(--mdc-theme-accent);
 }
 
 #results {
@@ -13,8 +20,10 @@
     gap: 0;                      
     margin: 0;
     padding: 0;
-    z-index: 1100;
-    position: relative;
+    z-index: 11000000000;
+    position: fixed;
+    top: 56px;
+    width: 100%;
   }
   
 .searchCards {
@@ -34,7 +43,7 @@
     left: 0;
     width: 100vw;
     min-height: calc(100vh - 56px);           
-    background-color: #4dac5a;
+    background-color: var(--mdc-theme-accent);
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
     z-index: 1000;            
@@ -42,6 +51,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: monospace;
   }
   
   .sheet-out-of-view {
@@ -55,7 +65,7 @@
   .pokemonMainImg {
     width: 70%;
     max-height: 50%;
-    background-color: red;
+    background-color: var(--mdc-text-color);
     border-radius: 50%;
   }
 
@@ -70,7 +80,7 @@
     left: 0;
     width: 100vw;
     height: calc(100vh - 56px);           
-    background-color: #faf32b;
+    background-color: var(--mdc-theme-accent);
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
     z-index: 1000;            
@@ -83,7 +93,7 @@
     left: 0;
     width: 100vw;
     height: calc(100vh - 56px);           
-    background-color: #ffffff;
+    background-color: var(--mdc-theme-accent);
     transform: translateY(-100%);  
     transition: transform 0.3s ease-in-out;
     z-index: 1000;            
@@ -112,9 +122,7 @@
     gap: 1em;
   }
 
-  .image-with-caption {
-    margin-bottom: 1em;
-  }
+  
   
   .tab-bar-bottom-custom {
     position: relative;
@@ -132,10 +140,6 @@
     width: 100%;
     background-color: var(--mdc-theme-primary);
     
-  }
-
-  footer .mdc-tab__icon {
-    color: white !important;
   }
 
 .switchImagesBtn {
@@ -169,6 +173,10 @@
   z-index: 20000000;            
   overflow-y: auto;
   color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .sheet-hamburger-menu:not(.sheet-out-of-view-hamburger) {
@@ -177,4 +185,72 @@
 
 .sheet-out-of-view-hamburger {
   transform: translateY(-130%);
+}
+
+.mdc-top-app-bar__title {
+  color:  var(--mdc-text-color) !important;
+}
+
+button {
+  color: black !important;
+}
+
+li {
+  background-color: #fffeff;
+  border: 1px  solid black;
+  margin-bottom: 1em;
+  display: flex;
+}
+
+.mdc-tab-bar {
+  background-color: var(--mdc-theme-primary) !important;
+}
+
+footer .mdc-tab__icon {
+  color: black !important;
+}
+
+.button-menu {
+  background-color: var(--mdc-theme-primary) !important;
+  color: var(--mdc-text-color) !important;
+  border: 2px solid var(--mdc-text-color);
+  border-radius: 10px;
+  width: 80%;
+  height: 25%;
+  font-size: large;
+  cursor: pointer;
+}
+
+#typeResultsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+}
+
+.typeCards {
+  width: 40%;
+  border: 2px solid var(--mdc-text-color);
+  border-radius: 10px;
+  font-size: larger;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  background-color: #dd5656;
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mdc-text-field--no-label {
+  height: 30px;
+  width: 130px;
+}
+
+.pokemon-data {
+  position: fixed;
+  bottom: 11%;
 }

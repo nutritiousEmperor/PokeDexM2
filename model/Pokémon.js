@@ -1,14 +1,15 @@
 export class Pokémon
 {
     //static baseImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon`;
-    static baseImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/`;
+    //static baseImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/`;
+    static baseImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/`;
     static abilities = {}; // is an object
 
     constructor(pokemonName, pokemonID)
     {
         this._pokemonName = pokemonName;
         this._pokemonID = pokemonID;
-        this._imgUrl = `${Pokémon.baseImgUrl}/${pokemonID}.svg`;
+        this._imgUrl = `${Pokémon.baseImgUrl}/${pokemonID}.png`;
     }
 
     // Getters:

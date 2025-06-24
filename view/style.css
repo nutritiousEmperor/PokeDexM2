@@ -142,10 +142,6 @@ html {
     
   }
 
-.switchImagesBtn {
-  opacity: 0;
-}
-
 .no-scroll {
   overflow: hidden;
 }
@@ -189,7 +185,9 @@ html {
 
 .mdc-top-app-bar__title {
   color:  var(--mdc-text-color) !important;
+  padding-left: 0px !important;
 }
+
 
 button {
   color: black !important;

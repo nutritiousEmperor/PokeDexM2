@@ -45,7 +45,13 @@ const pokemonExperience = document.querySelector('.pokemon-experience');
 let pokemonID;
 const mdcIimageList = document.querySelector('.mdc-image-list'); 
 const typeMasonryList = document.querySelector('.my-masonry-image-list-for-type');
-//let favoritesPokemonArrayId = []; // Remove the comments here <-
+let favoritesPokemonArray = []; // Remove the comments here <-
+const footer = document.querySelector('footer');
+const main = document.querySelector('main');
+
+// Array of pokemon types:
+const pokemonTypesArray = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
+
 
 // Start the page with displaying the first 20 cards on the home screen:
 async function showFirstSetOfCardsOnHomeScreen()
@@ -93,7 +99,6 @@ async function displayPokemonSheet(pokemonName)
     let mainImg = pokemon._imgUrl;
     let pokemonId = pokemon._pokemonID;
 
-    //switchImages(mainImg, backImg);
     profileImg.src = mainImg;
     profileImg.alt = pokemon._name;
     titleH1.textContent = pokemonName + ' #' + pokemonId;
@@ -101,17 +106,13 @@ async function displayPokemonSheet(pokemonName)
     pokemonWeight.textContent = 'Weight: ' + pokemon.getPokemonWeight();
     pokemonTypes.textContent = 'Types: ' + pokemon.getPokemonType().map(type => type.type.name).join(', ');
 
-
-
     pokemonExperience.textContent = 'Experience: ' + pokemon.getPokemonExperience();
     
-
-   
     if(currentPokemonId == 1)
     {
-        backButtonSection.classList.add('disabled-prev-button');
+        backButtonSection.style.opacity = '0.5';
     } else {
-        backButtonSection.classList.remove('disabled-prev-button');
+        backButtonSection.style.opacity = '1';
     }
 }
 
@@ -128,11 +129,42 @@ async function displayFavoritesSheet()
     // Add sheet out of view class to hide the pokemon sheet:
     pokemonSheet.classList.add('sheet-out-of-view');
 
-    // Display all the favorites pokemons:
-    const masonryList = document.querySelector('.my-masonry-favorites-image-list');
-    masonryList.innerHTML = '';
+    // Add sheet out of view class to hide the type sheet:
+    typeSheet.classList.add('sheet-out-of-view-types');
 
-    showCards(favoritesPokemonArray, 'my-masonry-favorites-image-list') 
+    favoriteSheet.innerHTML = '<ul class="mdc-image-list mdc-image-list--masonry my-masonry-favorites-image-list"></ul>';
+
+    if(favoritesPokemonArray.length > 0)
+    {
+        // Display all the favorites pokemons:
+        const masonryList = document.querySelector('.my-masonry-favorites-image-list');
+        masonryList.innerHTML = '';
+
+        showCards(favoritesPokemonArray, 'my-masonry-favorites-image-list');
+    } else {
+        const img = document.createElement('img');
+        img.className = 'no-favorites-img';
+        img.src = '/view/images/offline.png';
+        img.title = 'Image of a pokemon';
+        
+        img.style.width = '80%';
+        img.style.position = 'fixed';
+        img.style.left = '10%';
+        img.style.top = '5%';
+
+        const message = document.createElement('p');
+        message.className = 'no-favorites-message';
+        message.textContent = 'You have no favorites yet';
+
+        message.style.position = 'fixed';
+        message.style.left = '15%';
+        message.style.top = '55%';
+        message.style.fontFamily = 'monospace';
+        message.style.fontSize = 'larger';
+
+        favoriteSheet.appendChild(img);
+        favoriteSheet.appendChild(message);
+    }
 
     // Add event listener to go back to the home screen:
     homeButton.forEach(button => {
@@ -153,6 +185,12 @@ function displayTypesSheet()
     // Remove out of view class to display the types sheet:
     typeSheet.classList.remove('sheet-out-of-view-types');
 
+    // Add out of view class to remove the pokemon sheet:
+    pokemonSheet.classList.add('sheet-out-of-view');
+
+    // Add out of view class to favorite sheet to remove the sheet:
+    favoriteSheet.classList.add('sheet-out-of-view-favorites');
+
     // Add event listener to go back to the home screen:
     homeButton.forEach(button => {
         button.addEventListener('click', () => {
@@ -163,8 +201,6 @@ function displayTypesSheet()
         });
     });
 
-    const pokemonTypes = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
-
     // Clear the results container from previous cards and hide the footer:
     if(!typeFooter.classList.contains('hidden'))
     {
@@ -172,12 +208,13 @@ function displayTypesSheet()
         typeFooter.classList.add('hidden');
     }
 
-    pokemonTypes.forEach((type) => {
+    // Display all the types:
+    pokemonTypesArray.forEach((type) => {
         let card = document.createElement('a');
         card.className = 'mdc-card typeCards';
         card.textContent = type;
-
         
+        // Add event listeners for each type:
         card.addEventListener('click', async () => 
         { 
             let indexA = 0;
@@ -188,9 +225,7 @@ function displayTypesSheet()
             typeFooter.classList.remove('hidden');
 
             const arrayList = await API.query(`${API.baseUrl}/type/${type}`);
-            showCards(arrayList.pokemon.map(p => p.pokemon), `my-masonry-image-list-for-type`);
-
-            
+            showCards(arrayList.pokemon.map(p => p.pokemon), `my-masonry-image-list-for-type`);    
 
             backButtonType.addEventListener('click', () => {
                 if(indexA > 0)
@@ -200,7 +235,6 @@ function displayTypesSheet()
                 showCards(arrayList.pokemon.map(p => p.pokemon).slice(indexA, indexB), `my-masonry-image-list-for-type`);
                 }
             });
-
 
             nextButtonType.addEventListener('click', () => {
                 indexA += 20;
@@ -219,7 +253,7 @@ function showCards(arrayList, masonryListElement)
     let pokemon = {};
     masonryList.innerHTML = '';
 
-   
+    // Loop through the first 20 or if the array lenght is smaller than 20 than loop through the whole array to create the cards: 
     for (let index = 0; index < Math.min(arrayList.length, 20); index++) 
     {
         let pokemonName = arrayList[index].name;
@@ -231,17 +265,18 @@ function showCards(arrayList, masonryListElement)
             pokemonID = arrayList[index].url.split("/").filter(Boolean).pop(); 
         }
  
-
         // Create Pokémon Instances:
         pokemon[pokemonName] = new Pokémon(pokemonName, pokemonID);
 
-
+        // Create li element:
         const listItem = document.createElement('li');
         listItem.className = 'mdc-image-list__item';
 
+        // Create div element:
         const figure = document.createElement('div');
         figure.className = 'image-with-caption';
         
+        // Create img element:
         const img = document.createElement('img');
         img.className = 'mdc-image-list__image mdc-card';
         img.src = pokemon[pokemonName]._imgUrl;
@@ -250,6 +285,11 @@ function showCards(arrayList, masonryListElement)
         const pokemonCaption = document.createElement('figcaption');
         pokemonCaption.className = 'mdc-image-list__pokemonName';
         pokemonCaption.textContent = pokemon[pokemonName]._pokemonName + " #" + pokemon[pokemonName]._pokemonID;
+
+        // Make sure to set the listItem to the max width of the image to prevent the border being way larger than the image.
+        img.onload = () => {
+            listItem.style.maxWidth = `${img.naturalWidth}px`;
+        }
         figure.appendChild(img);
         figure.appendChild(pokemonCaption);
         
@@ -271,6 +311,8 @@ function search(data, query)
 
     if(query != '')
     {
+        resultsContainer.style.zIndex = '11000000000'; // For some reason a high z index still doesn't solve the issue
+        // Loop through the first 5 results and display them:
         for (let index = 0; index < results.length && index < 5; index++) 
         {
             // And here to visible obvs
@@ -296,6 +338,122 @@ function search(data, query)
     }
 }
 
+// Define data by either the id or name:
+async function defineData(pokemonIdOrName) {
+    const query = `${API.baseUrl}/pokemon/${pokemonIdOrName}`;
+    try {
+        const data = await API.query(query);
+        if (!data) throw new Error("No data returned");
+
+        const pokemon = new Pokémon(data.name, data.id);
+        pokemon.setPokemonID(data.id);
+        pokemon.setPokemonName(data.name);
+        pokemon.setPokemonHeight(data.height);
+        pokemon.setPokemonWeight(data.weight);
+        pokemon.setPokemonExperience(data.base_experience);
+        pokemon.setPokemonType(data.types);
+        return pokemon;
+
+    } catch (err) {
+        console.error(`Pokemon with ID ${pokemonIdOrNames} not found.`, err);
+        return null;
+    }
+}
+
+// Query the api for the next 20 pokemons and parse it in showCards:
+async function showNextSetOfCardsOnHomeScreen(currentPage)
+{
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
+    showCards(arrayList.results, `my-masonry-image-list`);
+}
+
+// Query the api for the previous 20 pokemons and parse it in showCards:
+async function showPreviousSetOfCardsOnHomeScreen(currentPage)
+{
+    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
+    showCards(arrayList.results, `my-masonry-image-list`);
+}
+
+// Add pokemon id and name to favoritesArray when favorite button is clicked:
+function addFavoritePokémon(pokemonName, pokemonId)
+{
+    if(!favoritesPokemonArray.some(pokemon => pokemon.id === pokemonId))
+    {
+        favoritesPokemonArray.push({name: pokemonName, id: pokemonId});
+    }
+}
+
+async function nextPokemon(pokemonId)
+{
+    let newPokemonId = pokemonId + 1;
+    const pokemon = await defineData(newPokemonId);
+
+    displayPokemonSheet(pokemon._pokemonName);
+}
+
+async function previousPokemon(pokemonId)
+{
+    if(pokemonId != 1)
+    {
+        let newPokemonId = pokemonId - 1;
+        const pokemon = await defineData(newPokemonId);
+
+        displayPokemonSheet(pokemon._pokemonName);
+    }
+}
+
+function smoothScrollToTop()
+{
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+}
+
+function addOpacity()
+{
+    mdcIimageList.style.display = 'none';
+
+    pokemonSheet.style.opacity = '0.7';
+    pokemonSheet.style.pointerEvents = 'none';
+
+    typeSheet.style.opacity = '0.7';
+    typeSheet.style.pointerEvents = 'none';
+
+    favoriteSheet.style.opacity = '0.7';
+    favoriteSheet.style.pointerEvents = 'none';
+
+    footer.style.opacity = '0';
+    main.style.opacity = '0';
+}
+
+function removeOpacity()
+{
+    mdcIimageList.style.opacity = '1';
+    mdcIimageList.style.display = '';
+
+    mdcIimageList.style.opacity = '1';
+    mdcIimageList.style.pointerEvents = 'auto';
+
+    pokemonSheet.style.opacity = '1';
+    pokemonSheet.style.pointerEvents = 'auto';
+
+    typeSheet.style.opacity = '1';
+    typeSheet.style.pointerEvents = 'auto';
+
+    favoriteSheet.style.opacity = '1';
+    favoriteSheet.style.pointerEvents = 'auto';
+
+    footer.style.opacity = '1';
+    main.style.opacity = '1';
+}
+
+
+
+
+// Event Listeners
+
 searchButton.addEventListener('click', () => 
 {
     if(inputField.style.display != 'none')
@@ -312,88 +470,7 @@ searchButton.addEventListener('click', () =>
             search(loadData, query);
         });
     }
-});
-
-async function defineData(pokemonName)
-{
-    const data = await API.query(`${API.baseUrl}/pokemon/${pokemonName}`);
-    const pokemon = new Pokémon(pokemonName, data.id);
-    
-    // Define all the data here:
-    pokemon.setPokemonHeight(data.height);
-    pokemon.setPokemonWeight(data.weight);
-    pokemon.setPokemonExperience(data.base_experience);
-    pokemon.setPokemonType(data.types);
-    return pokemon;
-}
-
-async function defineDataById(pokemonId) {
-    const query = `${API.baseUrl}/pokemon/${pokemonId}`;
-    try {
-        const data = await API.query(query);
-        if (!data) throw new Error("No data returned");
-        Pokémon._pokemonName = data.name;
-        Pokémon._pokemonID = data.id;
-        return Pokémon._pokemonName, Pokémon._pokemonID;
-    } catch (err) {
-        console.error(`Pokemon with ID ${pokemonId} not found.`, err);
-        return null;
-    }
-}
-
-async function showNextSetOfCardsOnHomeScreen(currentPage)
-{
-    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
-    showCards(arrayList.results, `my-masonry-image-list`);
-}
-
-async function showPreviousSetOfCardsOnHomeScreen(currentPage)
-{
-    const arrayList = await API.query(`${API.baseUrl}/pokemon?limit=20&offset=${currentPage}`);
-    showCards(arrayList.results, `my-masonry-image-list`);
-}
-
-function addFavoritePokémon(pokemonName, pokemonId)
-{
-    if(!favoritesPokemonArray.some(pokemon => pokemon.id === pokemonId))
-    {
-        favoritesPokemonArray.push({name: pokemonName, id: pokemonId});
-    }
-}
-
-async function nextPokemon(pokemonId)
-{
-    let newPokemonId = pokemonId + 1;
-    await defineDataById(newPokemonId);
-
-    displayPokemonSheet(Pokémon._pokemonName);
-}
-
-async function previousPokemon(pokemonId)
-{
-    if(pokemonId != 1)
-    {
-        let newPokemonId = pokemonId - 1;
-        await defineDataById(newPokemonId);
-
-        displayPokemonSheet(Pokémon._pokemonName);
-    }
-}
-
-function smoothScrollToTop()
-{
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-    
-}
-
-
-
-
-
-// Event Listeners
+});    
 
 nextButtonSection.addEventListener('click', () => {
     nextPokemon(currentPokemonId);
@@ -425,6 +502,21 @@ typeBtn.forEach(button => {
     button.addEventListener('click', () => {
     if(!hamburgerMenuSheet.classList.contains('sheet-out-of-view-hamburger'))
     {
+        mdcIimageList.style.opacity = '1';
+        mdcIimageList.style.display = '';
+
+        mdcIimageList.style.opacity = '1';
+        mdcIimageList.style.pointerEvents = 'auto';
+
+        pokemonSheet.style.opacity = '1';
+        pokemonSheet.style.pointerEvents = 'auto';
+
+        typeSheet.style.opacity = '1';
+        typeSheet.style.pointerEvents = 'auto';
+
+        favoriteSheet.style.opacity = '1';
+        favoriteSheet.style.pointerEvents = 'auto';
+
         hamburgerMenuSheet.classList.add('sheet-out-of-view-hamburger');
     }    
     displayTypesSheet();
@@ -451,18 +543,34 @@ hamburgerBtn.addEventListener('click', () => {
     {
         hamburgerMenuSheet.classList.remove('sheet-out-of-view-hamburger');
         mdcIimageList.style.opacity = '0.7';
+        mdcIimageList.style.pointerEvents = 'none';
+
+        // If user is anywhere else than the home screen:
+        if(window.location.pathname != '/view/')
+        {
+            addOpacity();
+        }
+        
         homeButton.forEach(button => {
             button.addEventListener('click', () => {
-                mdcIimageList.style.opacity = '1';
+                removeOpacity();
+
                 hamburgerMenuSheet.classList.add('sheet-out-of-view-hamburger');
             });
         });
     } else
     {
+        removeOpacity();
+
         hamburgerMenuSheet.classList.add('sheet-out-of-view-hamburger');
-        mdcIimageList.style.opacity = '1';
     }
 });
 
 // Debug remove when done!:
-const favoritesPokemonArray = [ { "name": "bulbasaur", "id": 1 }, { "name": "ivysaur", "id": 2 }, { "name": "venusaur", "id": 3 }, { "name": "charmander", "id": 4 }, { "name": "charmeleon", "id": 5 }, { "name": "charmeleon", "id": 6 }, { "name": "pikachu", "id": 7 }, { "name": "pikachu", "id": 25 }, { "name": "jynx", "id": 10082 }, { "name": "jynx", "id": 124 }, { "name": "nidoran-f", "id": 29 }, { "name": "arbok", "id": 14 }, { "name": "arbok", "id": 24 } ]
+//const favoritesPokemonArray = [ { "name": "bulbasaur", "id": 1 }, { "name": "ivysaur", "id": 2 }, { "name": "venusaur", "id": 3 }, { "name": "charmander", "id": 4 }, { "name": "charmeleon", "id": 5 }, { "name": "charmeleon", "id": 6 }, { "name": "pikachu", "id": 7 }, { "name": "pikachu", "id": 25 }, { "name": "jynx", "id": 10082 }, { "name": "jynx", "id": 124 }, { "name": "nidoran-f", "id": 29 }, { "name": "arbok", "id": 14 }, { "name": "arbok", "id": 24 } ]
+
+
+// Ensure padding-left is overwritten for the title because in the styling it doesn't work.
+document.querySelectorAll('.mdc-top-app-bar__title').forEach(title => {
+    title.style.setProperty('padding-left', '0px', 'important');
+});
